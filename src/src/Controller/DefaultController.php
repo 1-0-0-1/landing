@@ -14,7 +14,7 @@ class DefaultController extends AbstractController
      * @param string $slug
      * @return Response
      */
-    public function Index(string $slug): Response
+    public function index(string $slug): Response
     {
         return new Response(sprintf("You are open: %s", $slug));
     }
@@ -25,7 +25,7 @@ class DefaultController extends AbstractController
      * @param string $slug
      * @return Response
      */
-    public function AllPages(string $slug): Response
+    public function allPages(string $slug): Response
     {
         return new Response(sprintf("You are open: %s", $slug));
     }
