@@ -1,0 +1,35 @@
+version: '3'
+services:
+  php:
+    build:
+      context: .docker/php-fpm
+    restart: always
+    volumes:
+      - ./src/:/var/www/html/
+      - ./storage/var/:/var/www/html/var/
+    environment:
+      COMPOSER_ALLOW_SUPERUSER: 1
+      PHP_IDE_CONFIG: "serverName=DockerLanding"
+    networks:
+      container_network:
+        ipv4_address: 10.10.20.3
+  nginx:
+    build:
+      context: .docker/nginx
+    restart: always
+    depends_on:
+      - php
+    ports:
+      - "8020:80"
+    volumes:
+      - ./src/public/:/var/www/html/public/
+    networks:
+      container_network:
+        ipv4_address: 10.10.20.2
+
+networks:
+  container_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.20.0/24

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Pages activity
+{% endblock %}
+{% block body %}
+    {% if statistics.data %}
+        <table class="table table-bordered">
+            <tr>
+                <th>URL</th>
+                <th>Количество визитов</th>
+                <th>Последнее посещение</th>
+            </tr>
+            {% for item in statistics.data %}
+                <tr>
+                    <td>{{ item.url }}</td>
+                    <td>{{ item.visit_count }}</td>
+                    <td>{{ item.last_activity }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% if 0 < total_pages %}
+            <nav>
+                <ul class="pagination">
+                    {% for i in 1..total_pages %}
+                        {% if i == current_page %}
+                            <li class="page-item active"><a class="page-link" href="{{ path('admin_activity', {page: i}) }}">{{ i }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{{ path('admin_activity', {page: i}) }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+            <table>
+                <tr>
+                </tr>
+            </table>
+        {% endif %}
+    {% endif %}
+{% endblock %}
